@@ -1,0 +1,10 @@
+.tools/
+lab1/build/
+lab1/report/*.aux
+lab1/report/*.log
+lab1/report/*.out
+lab1/report/*.toc
+lab1/report/*.synctex.gz
+__pycache__/
+
+LaTeX_template/

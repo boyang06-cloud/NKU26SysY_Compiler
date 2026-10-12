@@ -1,0 +1,5 @@
+/home/oliver/Compile_sys_work/BIG_project/.tools/root/usr/bin/../lib/gcc-cross/riscv64-linux-gnu/11/../../../../riscv64-linux-gnu/bin/ld: /home/oliver/Compile_sys_work/BIG_project/lab1/build/factorial_O0.o: in function `main':
+factorial.c:(.text+0x62): undefined reference to `getint'
+/home/oliver/Compile_sys_work/BIG_project/.tools/root/usr/bin/../lib/gcc-cross/riscv64-linux-gnu/11/../../../../riscv64-linux-gnu/bin/ld: factorial.c:(.text+0x98): undefined reference to `putint'
+/home/oliver/Compile_sys_work/BIG_project/.tools/root/usr/bin/../lib/gcc-cross/riscv64-linux-gnu/11/../../../../riscv64-linux-gnu/bin/ld: factorial.c:(.text+0xa2): undefined reference to `putch'
+collect2: error: ld returned 1 exit status

@@ -1,0 +1,3 @@
+/home/oliver/Compile_sys_work/BIG_project/lab1/build/hivm_mlir14_syntax.mlir:6:35: error: #"hivm"<"address_space<gm>"> : 'none' attribute created with unregistered dialect. If this is intended, please call allowUnregisteredDialects() on the MLIRContext, or use -allow-unregistered-dialect with the MLIR opt tool used
+      %left: memref<16xi16, #hivm.address_space<gm>>,
+                                  ^

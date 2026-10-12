@@ -1,0 +1,58 @@
+{
+  "cases": 100,
+  "variants": 9,
+  "executions": 900,
+  "passed": 900,
+  "seed": 20261011,
+  "fixed_cases": {
+    "ordinary": {
+      "input": "5 2 3.5\n",
+      "output": "120\n12\n1\n1\n2 1\n44\n15\n7\n3\n0x1.98p+2\n3\n"
+    },
+    "or_short_circuit": {
+      "input": "5 0 -2.75\n",
+      "output": "120\n10\n1\n0\n0 0\n44\n15\n7\n5\n0x1.34p+2\n-2\n"
+    },
+    "and_short_circuit": {
+      "input": "0 3 0.0\n",
+      "output": "1\n3\n0\n0\n0 0\n99\n15\n7\n-3\n0x1p-1\n0\n"
+    },
+    "both_zero": {
+      "input": "0 0 -0.0\n",
+      "output": "1\n0\n1\n0\n0 0\n90\n15\n7\n0\n0x1p-1\n0\n"
+    },
+    "negative_dividend": {
+      "input": "-7 3 -3.75\n",
+      "output": "1\n-11\n1\n1\n-2 -1\n35\n15\n7\n-10\n-0x1.dcp+2\n-3\n"
+    },
+    "negative_divisor": {
+      "input": "7 -3 4.25\n",
+      "output": "5040\n11\n1\n1\n-2 1\n44\n15\n7\n10\n0x1.12p+3\n4\n"
+    },
+    "both_negative": {
+      "input": "-7 -3 0.1\n",
+      "output": "1\n-17\n1\n1\n2 -1\n35\n15\n7\n-4\n-0x1.9e6666p+2\n0\n"
+    },
+    "equal": {
+      "input": "3 3 1.5\n",
+      "output": "6\n9\n1\n1\n1 0\n26\n15\n7\n0\n0x1.fp+1\n1\n"
+    },
+    "upper_bound": {
+      "input": "8 2 100.25\n",
+      "output": "40320\n18\n1\n1\n4 0\n44\n15\n7\n6\n0x1.0c8p+5\n100\n"
+    },
+    "clamp_upper": {
+      "input": "9 2 -100.25\n",
+      "output": "40320\n20\n1\n1\n4 1\n44\n15\n7\n7\n-0x1.f2p+3\n-100\n"
+    },
+    "base_one": {
+      "input": "1 2 0x1.000002p+0\n",
+      "output": "1\n4\n1\n1\n0 1\n35\n15\n7\n-1\n0x1.cp+0\n1\n"
+    },
+    "rounding_small": {
+      "input": "-1 1 0x1p-24\n",
+      "output": "1\n-1\n1\n1\n-1 0\n35\n15\n7\n-2\n-0x1p-1\n0\n"
+    }
+  },
+  "domain": "n in [-1000,1000], d in [-20,20], finite binary32 f in [-101,101]; no signed overflow"
+}

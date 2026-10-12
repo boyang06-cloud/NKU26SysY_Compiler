@@ -1,0 +1,336 @@
+
+/home/oliver/Compile_sys_work/BIG_project/lab1/build/asm_rv64.o:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000000000 <tick>:
+   0:	00000297          	auipc	t0,0x0
+			0: R_RISCV_PCREL_HI20	hits
+			0: R_RISCV_RELAX	*ABS*
+   4:	00028293          	mv	t0,t0
+			4: R_RISCV_PCREL_LO12_I	.L0 
+			4: R_RISCV_RELAX	*ABS*
+   8:	0002a303          	lw	t1,0(t0) # 0 <tick>
+   c:	2305                	addiw	t1,t1,1
+   e:	0062a023          	sw	t1,0(t0)
+  12:	4505                	li	a0,1
+  14:	8082                	ret
+
+0000000000000016 <fact>:
+  16:	4285                	li	t0,1
+  18:	02a2d163          	bge	t0,a0,3a <.Lfact_base>
+			18: R_RISCV_BRANCH	.Lfact_base
+  1c:	1101                	addi	sp,sp,-32
+  1e:	ec06                	sd	ra,24(sp)
+  20:	e822                	sd	s0,16(sp)
+  22:	842a                	mv	s0,a0
+  24:	357d                	addiw	a0,a0,-1
+  26:	00000097          	auipc	ra,0x0
+			26: R_RISCV_CALL_PLT	fact
+			26: R_RISCV_RELAX	*ABS*
+  2a:	000080e7          	jalr	ra # 26 <fact+0x10>
+  2e:	02a4053b          	mulw	a0,s0,a0
+  32:	6442                	ld	s0,16(sp)
+  34:	60e2                	ld	ra,24(sp)
+  36:	6105                	addi	sp,sp,32
+  38:	8082                	ret
+
+000000000000003a <.Lfact_base>:
+  3a:	4505                	li	a0,1
+  3c:	8082                	ret
+
+000000000000003e <mix>:
+  3e:	1101                	addi	sp,sp,-32
+  40:	c02a                	sw	a0,0(sp)
+  42:	c22e                	sw	a1,4(sp)
+  44:	00b502bb          	addw	t0,a0,a1
+  48:	c416                	sw	t0,8(sp)
+  4a:	40b502bb          	subw	t0,a0,a1
+  4e:	c616                	sw	t0,12(sp)
+  50:	4281                	li	t0,0
+  52:	4301                	li	t1,0
+
+0000000000000054 <.Lmix_loop>:
+  54:	4391                	li	t2,4
+  56:	0272d263          	bge	t0,t2,7a <.Lmix_exit>
+			56: R_RISCV_BRANCH	.Lmix_exit
+  5a:	2285                	addiw	t0,t0,1
+  5c:	4389                	li	t2,2
+  5e:	fe728be3          	beq	t0,t2,54 <.Lmix_loop>
+			5e: R_RISCV_BRANCH	.Lmix_loop
+  62:	438d                	li	t2,3
+  64:	0053cb63          	blt	t2,t0,7a <.Lmix_exit>
+			64: R_RISCV_BRANCH	.Lmix_exit
+  68:	fff2839b          	addiw	t2,t0,-1
+  6c:	038a                	slli	t2,t2,0x2
+  6e:	938a                	add	t2,t2,sp
+  70:	0003ae03          	lw	t3,0(t2)
+  74:	01c3033b          	addw	t1,t1,t3
+  78:	bff1                	j	54 <.Lmix_loop>
+			78: R_RISCV_RVC_JUMP	.Lmix_loop
+
+000000000000007a <.Lmix_exit>:
+  7a:	851a                	mv	a0,t1
+  7c:	6105                	addi	sp,sp,32
+  7e:	8082                	ret
+
+0000000000000080 <sumrow>:
+  80:	42b1                	li	t0,12
+  82:	025582b3          	mul	t0,a1,t0
+  86:	92aa                	add	t0,t0,a0
+  88:	4301                	li	t1,0
+  8a:	4501                	li	a0,0
+
+000000000000008c <.Lrow_loop>:
+  8c:	438d                	li	t2,3
+  8e:	00735963          	bge	t1,t2,a0 <.Lrow_exit>
+			8e: R_RISCV_BRANCH	.Lrow_exit
+  92:	0002a383          	lw	t2,0(t0)
+  96:	0075053b          	addw	a0,a0,t2
+  9a:	0291                	addi	t0,t0,4
+  9c:	2305                	addiw	t1,t1,1
+  9e:	b7fd                	j	8c <.Lrow_loop>
+			9e: R_RISCV_RVC_JUMP	.Lrow_loop
+
+00000000000000a0 <.Lrow_exit>:
+  a0:	8082                	ret
+
+00000000000000a2 <compare>:
+  a2:	00b522b3          	slt	t0,a0,a1
+  a6:	00a5a333          	slt	t1,a1,a0
+  aa:	00134313          	xori	t1,t1,1
+  ae:	0306                	slli	t1,t1,0x1
+  b0:	006282bb          	addw	t0,t0,t1
+  b4:	00a5a333          	slt	t1,a1,a0
+  b8:	030a                	slli	t1,t1,0x2
+  ba:	006282bb          	addw	t0,t0,t1
+  be:	00b52333          	slt	t1,a0,a1
+  c2:	00134313          	xori	t1,t1,1
+  c6:	030e                	slli	t1,t1,0x3
+  c8:	006282bb          	addw	t0,t0,t1
+  cc:	00b543b3          	xor	t2,a0,a1
+  d0:	0013b313          	seqz	t1,t2
+  d4:	0312                	slli	t1,t1,0x4
+  d6:	006282bb          	addw	t0,t0,t1
+  da:	00703333          	snez	t1,t2
+  de:	0316                	slli	t1,t1,0x5
+  e0:	006282bb          	addw	t0,t0,t1
+  e4:	00153313          	seqz	t1,a0
+  e8:	031a                	slli	t1,t1,0x6
+  ea:	0062853b          	addw	a0,t0,t1
+  ee:	8082                	ret
+
+00000000000000f0 <transform>:
+  f0:	00000297          	auipc	t0,0x0
+			f0: R_RISCV_PCREL_HI20	.Lfconst
+			f0: R_RISCV_RELAX	*ABS*
+  f4:	00028293          	mv	t0,t0
+			f4: R_RISCV_PCREL_LO12_I	.L0 
+			f4: R_RISCV_RELAX	*ABS*
+  f8:	0002a007          	flw	ft0,0(t0) # f0 <transform>
+  fc:	10050553          	fmul.s	fa0,fa0,ft0,rne
+ 100:	0042a007          	flw	ft0,4(t0)
+ 104:	00050553          	fadd.s	fa0,fa0,ft0,rne
+ 108:	0082a007          	flw	ft0,8(t0)
+ 10c:	08050553          	fsub.s	fa0,fa0,ft0,rne
+ 110:	00c2a007          	flw	ft0,12(t0)
+ 114:	18050553          	fdiv.s	fa0,fa0,ft0,rne
+ 118:	d0050053          	fcvt.s.w	ft0,a0,rne
+ 11c:	00050553          	fadd.s	fa0,fa0,ft0,rne
+ 120:	8082                	ret
+
+0000000000000122 <printline>:
+ 122:	1141                	addi	sp,sp,-16
+ 124:	e406                	sd	ra,8(sp)
+ 126:	00000097          	auipc	ra,0x0
+			126: R_RISCV_CALL_PLT	putint
+			126: R_RISCV_RELAX	*ABS*
+ 12a:	000080e7          	jalr	ra # 126 <printline+0x4>
+ 12e:	4529                	li	a0,10
+ 130:	00000097          	auipc	ra,0x0
+			130: R_RISCV_CALL_PLT	putch
+			130: R_RISCV_RELAX	*ABS*
+ 134:	000080e7          	jalr	ra # 130 <printline+0xe>
+ 138:	60a2                	ld	ra,8(sp)
+ 13a:	0141                	addi	sp,sp,16
+ 13c:	8082                	ret
+
+000000000000013e <main>:
+ 13e:	7139                	addi	sp,sp,-64
+ 140:	fc06                	sd	ra,56(sp)
+ 142:	f822                	sd	s0,48(sp)
+ 144:	f426                	sd	s1,40(sp)
+ 146:	f04a                	sd	s2,32(sp)
+ 148:	ac22                	fsd	fs0,24(sp)
+ 14a:	00000097          	auipc	ra,0x0
+			14a: R_RISCV_CALL_PLT	getint
+			14a: R_RISCV_RELAX	*ABS*
+ 14e:	000080e7          	jalr	ra # 14a <main+0xc>
+ 152:	842a                	mv	s0,a0
+ 154:	00000097          	auipc	ra,0x0
+			154: R_RISCV_CALL_PLT	getint
+			154: R_RISCV_RELAX	*ABS*
+ 158:	000080e7          	jalr	ra # 154 <main+0x16>
+ 15c:	84aa                	mv	s1,a0
+ 15e:	00000097          	auipc	ra,0x0
+			15e: R_RISCV_CALL_PLT	getfloat
+			15e: R_RISCV_RELAX	*ABS*
+ 162:	000080e7          	jalr	ra # 15e <main+0x20>
+ 166:	20a50453          	fmv.s	fs0,fa0
+ 16a:	8522                	mv	a0,s0
+ 16c:	00055363          	bgez	a0,172 <.Lbound_upper>
+			16c: R_RISCV_BRANCH	.Lbound_upper
+ 170:	4501                	li	a0,0
+
+0000000000000172 <.Lbound_upper>:
+ 172:	42a1                	li	t0,8
+ 174:	00a2d363          	bge	t0,a0,17a <.Lbound_done>
+			174: R_RISCV_BRANCH	.Lbound_done
+ 178:	4521                	li	a0,8
+
+000000000000017a <.Lbound_done>:
+ 17a:	00000097          	auipc	ra,0x0
+			17a: R_RISCV_CALL_PLT	fact
+			17a: R_RISCV_RELAX	*ABS*
+ 17e:	000080e7          	jalr	ra # 17a <.Lbound_done>
+ 182:	00000097          	auipc	ra,0x0
+			182: R_RISCV_CALL_PLT	printline
+			182: R_RISCV_RELAX	*ABS*
+ 186:	000080e7          	jalr	ra # 182 <.Lbound_done+0x8>
+ 18a:	8522                	mv	a0,s0
+ 18c:	85a6                	mv	a1,s1
+ 18e:	00000097          	auipc	ra,0x0
+			18e: R_RISCV_CALL_PLT	mix
+			18e: R_RISCV_RELAX	*ABS*
+ 192:	000080e7          	jalr	ra # 18e <.Lbound_done+0x14>
+ 196:	00000097          	auipc	ra,0x0
+			196: R_RISCV_CALL_PLT	printline
+			196: R_RISCV_RELAX	*ABS*
+ 19a:	000080e7          	jalr	ra # 196 <.Lbound_done+0x1c>
+ 19e:	c889                	beqz	s1,1b0 <.Llogic_true>
+			19e: R_RISCV_RVC_BRANCH	.Llogic_true
+ 1a0:	c811                	beqz	s0,1b4 <.Llogic_false>
+			1a0: R_RISCV_RVC_BRANCH	.Llogic_false
+ 1a2:	00000097          	auipc	ra,0x0
+			1a2: R_RISCV_CALL_PLT	tick
+			1a2: R_RISCV_RELAX	*ABS*
+ 1a6:	000080e7          	jalr	ra # 1a2 <.Lbound_done+0x28>
+ 1aa:	00a03533          	snez	a0,a0
+ 1ae:	a021                	j	1b6 <.Llogic_end>
+			1ae: R_RISCV_RVC_JUMP	.Llogic_end
+
+00000000000001b0 <.Llogic_true>:
+ 1b0:	4505                	li	a0,1
+ 1b2:	a011                	j	1b6 <.Llogic_end>
+			1b2: R_RISCV_RVC_JUMP	.Llogic_end
+
+00000000000001b4 <.Llogic_false>:
+ 1b4:	4501                	li	a0,0
+
+00000000000001b6 <.Llogic_end>:
+ 1b6:	00000097          	auipc	ra,0x0
+			1b6: R_RISCV_CALL_PLT	printline
+			1b6: R_RISCV_RELAX	*ABS*
+ 1ba:	000080e7          	jalr	ra # 1b6 <.Llogic_end>
+ 1be:	00000297          	auipc	t0,0x0
+			1be: R_RISCV_PCREL_HI20	hits
+			1be: R_RISCV_RELAX	*ABS*
+ 1c2:	00028293          	mv	t0,t0
+			1c2: R_RISCV_PCREL_LO12_I	.L0 
+			1c2: R_RISCV_RELAX	*ABS*
+ 1c6:	0002a503          	lw	a0,0(t0) # 1be <.Llogic_end+0x8>
+ 1ca:	00000097          	auipc	ra,0x0
+			1ca: R_RISCV_CALL_PLT	printline
+			1ca: R_RISCV_RELAX	*ABS*
+ 1ce:	000080e7          	jalr	ra # 1ca <.Llogic_end+0x14>
+ 1d2:	c491                	beqz	s1,1de <.Ldiv_zero>
+			1d2: R_RISCV_RVC_BRANCH	.Ldiv_zero
+ 1d4:	0294453b          	divw	a0,s0,s1
+ 1d8:	0294693b          	remw	s2,s0,s1
+ 1dc:	a019                	j	1e2 <.Ldiv_end>
+			1dc: R_RISCV_RVC_JUMP	.Ldiv_end
+
+00000000000001de <.Ldiv_zero>:
+ 1de:	4501                	li	a0,0
+ 1e0:	4901                	li	s2,0
+
+00000000000001e2 <.Ldiv_end>:
+ 1e2:	00000097          	auipc	ra,0x0
+			1e2: R_RISCV_CALL_PLT	putint
+			1e2: R_RISCV_RELAX	*ABS*
+ 1e6:	000080e7          	jalr	ra # 1e2 <.Ldiv_end>
+ 1ea:	02000513          	li	a0,32
+ 1ee:	00000097          	auipc	ra,0x0
+			1ee: R_RISCV_CALL_PLT	putch
+			1ee: R_RISCV_RELAX	*ABS*
+ 1f2:	000080e7          	jalr	ra # 1ee <.Ldiv_end+0xc>
+ 1f6:	854a                	mv	a0,s2
+ 1f8:	00000097          	auipc	ra,0x0
+			1f8: R_RISCV_CALL_PLT	printline
+			1f8: R_RISCV_RELAX	*ABS*
+ 1fc:	000080e7          	jalr	ra # 1f8 <.Ldiv_end+0x16>
+ 200:	8522                	mv	a0,s0
+ 202:	85a6                	mv	a1,s1
+ 204:	00000097          	auipc	ra,0x0
+			204: R_RISCV_CALL_PLT	compare
+			204: R_RISCV_RELAX	*ABS*
+ 208:	000080e7          	jalr	ra # 204 <.Ldiv_end+0x22>
+ 20c:	00000097          	auipc	ra,0x0
+			20c: R_RISCV_CALL_PLT	printline
+			20c: R_RISCV_RELAX	*ABS*
+ 210:	000080e7          	jalr	ra # 20c <.Ldiv_end+0x2a>
+ 214:	00000517          	auipc	a0,0x0
+			214: R_RISCV_PCREL_HI20	grid
+			214: R_RISCV_RELAX	*ABS*
+ 218:	00050513          	mv	a0,a0
+			218: R_RISCV_PCREL_LO12_I	.L0 
+			218: R_RISCV_RELAX	*ABS*
+ 21c:	4585                	li	a1,1
+ 21e:	00000097          	auipc	ra,0x0
+			21e: R_RISCV_CALL_PLT	sumrow
+			21e: R_RISCV_RELAX	*ABS*
+ 222:	000080e7          	jalr	ra # 21e <.Ldiv_end+0x3c>
+ 226:	00000097          	auipc	ra,0x0
+			226: R_RISCV_CALL_PLT	printline
+			226: R_RISCV_RELAX	*ABS*
+ 22a:	000080e7          	jalr	ra # 226 <.Ldiv_end+0x44>
+ 22e:	451d                	li	a0,7
+ 230:	00000097          	auipc	ra,0x0
+			230: R_RISCV_CALL_PLT	printline
+			230: R_RISCV_RELAX	*ABS*
+ 234:	000080e7          	jalr	ra # 230 <.Ldiv_end+0x4e>
+ 238:	409002bb          	negw	t0,s1
+ 23c:	0054053b          	addw	a0,s0,t0
+ 240:	00000097          	auipc	ra,0x0
+			240: R_RISCV_CALL_PLT	printline
+			240: R_RISCV_RELAX	*ABS*
+ 244:	000080e7          	jalr	ra # 240 <.Ldiv_end+0x5e>
+ 248:	20840553          	fmv.s	fa0,fs0
+ 24c:	8522                	mv	a0,s0
+ 24e:	00000097          	auipc	ra,0x0
+			24e: R_RISCV_CALL_PLT	transform
+			24e: R_RISCV_RELAX	*ABS*
+ 252:	000080e7          	jalr	ra # 24e <.Ldiv_end+0x6c>
+ 256:	00000097          	auipc	ra,0x0
+			256: R_RISCV_CALL_PLT	putfloat
+			256: R_RISCV_RELAX	*ABS*
+ 25a:	000080e7          	jalr	ra # 256 <.Ldiv_end+0x74>
+ 25e:	4529                	li	a0,10
+ 260:	00000097          	auipc	ra,0x0
+			260: R_RISCV_CALL_PLT	putch
+			260: R_RISCV_RELAX	*ABS*
+ 264:	000080e7          	jalr	ra # 260 <.Ldiv_end+0x7e>
+ 268:	c0041553          	fcvt.w.s	a0,fs0,rtz
+ 26c:	00000097          	auipc	ra,0x0
+			26c: R_RISCV_CALL_PLT	printline
+			26c: R_RISCV_RELAX	*ABS*
+ 270:	000080e7          	jalr	ra # 26c <.Ldiv_end+0x8a>
+ 274:	4501                	li	a0,0
+ 276:	2462                	fld	fs0,24(sp)
+ 278:	7902                	ld	s2,32(sp)
+ 27a:	74a2                	ld	s1,40(sp)
+ 27c:	7442                	ld	s0,48(sp)
+ 27e:	70e2                	ld	ra,56(sp)
+ 280:	6121                	addi	sp,sp,64
+ 282:	8082                	ret

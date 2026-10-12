@@ -1,0 +1,13 @@
+{
+  "mlir_version": "Ubuntu LLVM version 14.0.0",
+  "bishengir_compile": null,
+  "cann_paths_present": {
+    "/usr/local/Ascend/ascend-toolkit": false,
+    "/usr/local/Ascend/cann": false,
+    "/usr/Ascend/cann": false
+  },
+  "npu_device_nodes": [],
+  "npu_execution_performed": false,
+  "cpu_element_checks": 64,
+  "note": "Community MLIR CPU lowering was executed. Ascend pipeline is documented, not locally executed."
+}

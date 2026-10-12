@@ -1,0 +1,13 @@
+{
+  "versions": {
+    "clang": "Ubuntu clang version 14.0.0-1ubuntu1.1",
+    "llvm-opt": "Ubuntu LLVM version 14.0.0",
+    "rv-linux-gcc": "riscv64-linux-gnu-gcc-11 (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0",
+    "rv-elf-as": "GNU assembler (GNU Binutils) 2.45",
+    "qemu": "qemu-riscv64 version 7.0.0"
+  },
+  "sysroot": "/home/oliver/Compile_sys_work/BIG_project/.tools/root/usr/riscv64-linux-gnu",
+  "architecture": "RV64GC / LP64D",
+  "qemu": "/opt/qemu/bin/qemu-riscv64",
+  "runtime": "original lab1/runtime/sylib.c"
+}

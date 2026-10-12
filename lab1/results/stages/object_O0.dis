@@ -1,0 +1,105 @@
+
+/home/oliver/Compile_sys_work/BIG_project/lab1/build/factorial_O0.o:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000000000 <factorial>:
+   0:	1101                	addi	sp,sp,-32
+   2:	ec06                	sd	ra,24(sp)
+   4:	e822                	sd	s0,16(sp)
+   6:	1000                	addi	s0,sp,32
+   8:	fea42623          	sw	a0,-20(s0)
+   c:	4509                	li	a0,2
+   e:	fea42423          	sw	a0,-24(s0)
+  12:	4505                	li	a0,1
+  14:	fea42223          	sw	a0,-28(s0)
+  18:	a009                	j	1a <.LBB0_1>
+			18: R_RISCV_RVC_JUMP	.LBB0_1
+
+000000000000001a <.LBB0_1>:
+  1a:	fe842583          	lw	a1,-24(s0)
+  1e:	fec42503          	lw	a0,-20(s0)
+  22:	02b54163          	blt	a0,a1,44 <.LBB0_3>
+			22: R_RISCV_BRANCH	.LBB0_3
+  26:	a009                	j	28 <.LBB0_2>
+			26: R_RISCV_RVC_JUMP	.LBB0_2
+
+0000000000000028 <.LBB0_2>:
+  28:	fe442503          	lw	a0,-28(s0)
+  2c:	fe842583          	lw	a1,-24(s0)
+  30:	02b5053b          	mulw	a0,a0,a1
+  34:	fea42223          	sw	a0,-28(s0)
+  38:	fe842503          	lw	a0,-24(s0)
+  3c:	2505                	addiw	a0,a0,1
+  3e:	fea42423          	sw	a0,-24(s0)
+  42:	bfe1                	j	1a <.LBB0_1>
+			42: R_RISCV_RVC_JUMP	.LBB0_1
+
+0000000000000044 <.LBB0_3>:
+  44:	fe442503          	lw	a0,-28(s0)
+  48:	60e2                	ld	ra,24(sp)
+  4a:	6442                	ld	s0,16(sp)
+  4c:	6105                	addi	sp,sp,32
+  4e:	8082                	ret
+
+0000000000000050 <main>:
+  50:	1101                	addi	sp,sp,-32
+  52:	ec06                	sd	ra,24(sp)
+  54:	e822                	sd	s0,16(sp)
+  56:	1000                	addi	s0,sp,32
+  58:	4501                	li	a0,0
+  5a:	fea43023          	sd	a0,-32(s0)
+  5e:	fea42623          	sw	a0,-20(s0)
+  62:	00000097          	auipc	ra,0x0
+			62: R_RISCV_CALL_PLT	getint
+			62: R_RISCV_RELAX	*ABS*
+  66:	000080e7          	jalr	ra # 62 <main+0x12>
+  6a:	fe043583          	ld	a1,-32(s0)
+  6e:	fea42423          	sw	a0,-24(s0)
+  72:	fe842503          	lw	a0,-24(s0)
+  76:	00b54963          	blt	a0,a1,88 <.LBB1_2>
+			76: R_RISCV_BRANCH	.LBB1_2
+  7a:	a009                	j	7c <.LBB1_1>
+			7a: R_RISCV_RVC_JUMP	.LBB1_1
+
+000000000000007c <.LBB1_1>:
+  7c:	fe842503          	lw	a0,-24(s0)
+  80:	45b5                	li	a1,13
+  82:	00b54763          	blt	a0,a1,90 <.LBB1_3>
+			82: R_RISCV_BRANCH	.LBB1_3
+  86:	a009                	j	88 <.LBB1_2>
+			86: R_RISCV_RVC_JUMP	.LBB1_2
+
+0000000000000088 <.LBB1_2>:
+  88:	4505                	li	a0,1
+  8a:	fea42623          	sw	a0,-20(s0)
+  8e:	a025                	j	b6 <.LBB1_4>
+			8e: R_RISCV_RVC_JUMP	.LBB1_4
+
+0000000000000090 <.LBB1_3>:
+  90:	fe842503          	lw	a0,-24(s0)
+  94:	00000097          	auipc	ra,0x0
+			94: R_RISCV_CALL_PLT	factorial
+			94: R_RISCV_RELAX	*ABS*
+  98:	000080e7          	jalr	ra # 94 <.LBB1_3+0x4>
+  9c:	00000097          	auipc	ra,0x0
+			9c: R_RISCV_CALL_PLT	putint
+			9c: R_RISCV_RELAX	*ABS*
+  a0:	000080e7          	jalr	ra # 9c <.LBB1_3+0xc>
+  a4:	4529                	li	a0,10
+  a6:	00000097          	auipc	ra,0x0
+			a6: R_RISCV_CALL_PLT	putch
+			a6: R_RISCV_RELAX	*ABS*
+  aa:	000080e7          	jalr	ra # a6 <.LBB1_3+0x16>
+  ae:	4501                	li	a0,0
+  b0:	fea42623          	sw	a0,-20(s0)
+  b4:	a009                	j	b6 <.LBB1_4>
+			b4: R_RISCV_RVC_JUMP	.LBB1_4
+
+00000000000000b6 <.LBB1_4>:
+  b6:	fec42503          	lw	a0,-20(s0)
+  ba:	60e2                	ld	ra,24(sp)
+  bc:	6442                	ld	s0,16(sp)
+  be:	6105                	addi	sp,sp,32
+  c0:	8082                	ret

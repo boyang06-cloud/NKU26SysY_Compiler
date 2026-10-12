@@ -1,0 +1,4 @@
+lab1/src/factorial.c:10:5: remark: vectorized loop (vectorization width: 4, interleaved count: 2) [-Rpass=loop-vectorize]
+    while (i <= n) {
+    ^
+lab1/src/factorial.c:10:5: remark: vectorized loop (vectorization width: 4, interleaved count: 1) [-Rpass=loop-vectorize]

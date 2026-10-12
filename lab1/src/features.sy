@@ -1,0 +1,90 @@
+// SysY core + array/float extensions. No C-only syntax or includes.
+const int LIMIT = 8;
+int hits = 0;
+int grid[2][3] = {{1, 2, 3}, {4, 5, 6}};
+
+int tick() {
+    hits = hits + 1;
+    return 1;
+}
+int fact(int n) {
+    if (n <= 1) return 1;
+    return n * fact(n - 1);
+}
+int mix(int x, int y) {
+    int a[4] = {x, y, x + y, x - y};
+    int i = 0;
+    int sum = 0;
+    while (i < 4) {
+        i = i + 1;
+        if (i == 2) continue;
+        if (i > 3) break;
+        sum = sum + a[i - 1];
+    }
+    return sum;
+}
+int sumrow(int a[][3], int row) {
+    int i = 0;
+    int sum = 0;
+    while (i < 3) {
+        sum = sum + a[row][i];
+        i = i + 1;
+    }
+    return sum;
+}
+int compare(int x, int y) {
+    int mask = 0;
+    if (x < y) mask = mask + 1;
+    if (x <= y) mask = mask + 2;
+    if (x > y) mask = mask + 4;
+    if (x >= y) mask = mask + 8;
+    if (x == y) mask = mask + 16;
+    if (x != y) mask = mask + 32;
+    if (!x) mask = mask + 64;
+    return mask;
+}
+float transform(float x, int bias) {
+    const float half = 0.5;
+    const float up = 1.25;
+    const float down = 0.25;
+    const float two = 2.0;
+    return (x * half + up - down) / two + bias;
+}
+void printline(int x) {
+    putint(x);
+    putch(10);
+}
+int main() {
+    int n = getint();
+    int d = getint();
+    float f = getfloat();
+    int bounded = n;
+    if (bounded < 0) bounded = 0;
+    else if (bounded > LIMIT) bounded = LIMIT;
+    printline(fact(bounded));
+    printline(mix(n, d));
+    if (d == 0 || (n != 0 && tick())) printline(1);
+    else printline(0);
+    printline(hits);
+    if (d != 0) {
+        putint(n / d);
+        putch(32);
+        printline(n % d);
+    } else {
+        putint(0);
+        putch(32);
+        printline(0);
+    }
+    printline(compare(n, d));
+    printline(sumrow(grid, 1));
+    {
+        const int n = 7; // block scope shadows the input n
+        printline(n);
+    }
+    printline(+n + -d);
+    putfloat(transform(f, n));
+    putch(10);
+    int truncated = f; // float-to-int conversion, toward zero
+    printline(truncated);
+    return 0;
+}

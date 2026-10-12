@@ -1,0 +1,66 @@
+
+/home/oliver/Compile_sys_work/BIG_project/lab1/build/factorial_O2.o:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000000000 <factorial>:
+   0:	4609                	li	a2,2
+   2:	4585                	li	a1,1
+   4:	00c54963          	blt	a0,a2,16 <.LBB0_3>
+			4: R_RISCV_BRANCH	.LBB0_3
+   8:	4585                	li	a1,1
+
+000000000000000a <.LBB0_2>:
+   a:	86b2                	mv	a3,a2
+   c:	02c585bb          	mulw	a1,a1,a2
+  10:	2605                	addiw	a2,a2,1
+  12:	fea6cce3          	blt	a3,a0,a <.LBB0_2>
+			12: R_RISCV_BRANCH	.LBB0_2
+
+0000000000000016 <.LBB0_3>:
+  16:	852e                	mv	a0,a1
+  18:	8082                	ret
+
+000000000000001a <main>:
+  1a:	1141                	addi	sp,sp,-16
+  1c:	e406                	sd	ra,8(sp)
+  1e:	00000097          	auipc	ra,0x0
+			1e: R_RISCV_CALL_PLT	getint
+			1e: R_RISCV_RELAX	*ABS*
+  22:	000080e7          	jalr	ra # 1e <main+0x4>
+  26:	4631                	li	a2,12
+  28:	4585                	li	a1,1
+  2a:	02a66863          	bltu	a2,a0,5a <.LBB1_5>
+			2a: R_RISCV_BRANCH	.LBB1_5
+  2e:	4609                	li	a2,2
+  30:	4585                	li	a1,1
+  32:	00c56963          	bltu	a0,a2,44 <.LBB1_4>
+			32: R_RISCV_BRANCH	.LBB1_4
+  36:	4585                	li	a1,1
+
+0000000000000038 <.LBB1_3>:
+  38:	86b2                	mv	a3,a2
+  3a:	02b605bb          	mulw	a1,a2,a1
+  3e:	2605                	addiw	a2,a2,1
+  40:	fea6cce3          	blt	a3,a0,38 <.LBB1_3>
+			40: R_RISCV_BRANCH	.LBB1_3
+
+0000000000000044 <.LBB1_4>:
+  44:	852e                	mv	a0,a1
+  46:	00000097          	auipc	ra,0x0
+			46: R_RISCV_CALL_PLT	putint
+			46: R_RISCV_RELAX	*ABS*
+  4a:	000080e7          	jalr	ra # 46 <.LBB1_4+0x2>
+  4e:	4529                	li	a0,10
+  50:	00000097          	auipc	ra,0x0
+			50: R_RISCV_CALL_PLT	putch
+			50: R_RISCV_RELAX	*ABS*
+  54:	000080e7          	jalr	ra # 50 <.LBB1_4+0xc>
+  58:	4581                	li	a1,0
+
+000000000000005a <.LBB1_5>:
+  5a:	852e                	mv	a0,a1
+  5c:	60a2                	ld	ra,8(sp)
+  5e:	0141                	addi	sp,sp,16
+  60:	8082                	ret
